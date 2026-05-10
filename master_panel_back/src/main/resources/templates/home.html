@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>Home Page</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+        <div class="container ">
+            <div class="row bg_custom mt-5 py-3 justify-content-center">
+                <div class="col-12">
+                    <section>
+                        <h1>Benvenuti nella homepage del back Office della mia applicazione</h1>
+                    </section>
+                    <section class="mt-3">
+                        <p>
+                            Questa parte dell'applicazione nasce con lo scopo di gestire i dati che verranno mandati
+                            al frontend.
+
+                        </p>
+                        <p>
+                            All'interno di questa applicazione sarà possibile visualizzare l'elenco completo dei mostri
+                            e degli incantesimi inseriti nel db, riordinarli per livello o cercarne uno
+                            specifico.
+                        </p>
+                        <p>
+                            Dall'elenco dei mostri sarà possibile inoltre accedere alla sua scheda personale con un
+                            illustrazione ed accedere all'elenco di tutte le sue capacità.
+                            Per gli incantesimi ci sarà una scheda con tutte le informazioni necessarie per il loro
+                            utilizzo.
+                        </p>
+                        <p>
+
+                        </p>
+
+                        <div class=" mt-4">
+                            <p>
+                                per procedere alla navigazione cliccare sulla navbar la voce tutti i mostri. In
+                                alternativa <a class="btn btn-sm btn-primary ms-2" href="/monsters">premere qui</a>
+                            </p>
+                            <p>
+                                oppure cliccare su tutte le magie o in alternativa <a
+                                    class="btn btn-sm btn-primary ms-2" href="/spells">premere qui</a>
+                            </p>
+                        </div>
+
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>

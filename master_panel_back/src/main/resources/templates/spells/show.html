@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>[[${spell.name}]]</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+        <div class="container  mt-5" th:object="${spell}">
+            <div class="row d-flex justify-content-center">
+                <div class="col-8 ">
+                    <div class="card mt-4  text-center spell_card_body text-light">
+                        <div class="card-header">
+                            <div class="fs-5 fw-bold">[[*{name}]]</div>
+                            <div class="fs-7 fw-bold">[[*{school}]] di livello: [[*{level}]]</div>
+                        </div>
+                        <div class="card-body mb-4 spell_card_body px-5">
+                            <div class="row border border-danger bg_custom text-dark">
+                                <div class="col-6 text-center border-end border-danger">
+                                    <div>
+                                        <span class="fw-bold text-danger">TEMPO DI LANCIO</span>
+                                    </div>
+                                    <div>
+                                        <span>[[*{castMethod}]]</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-6 text-center  ">
+                                    <div>
+                                        <span class="fw-bold text-danger">GITTATA</span>
+                                    </div>
+                                    <div>
+                                        <span>[[*{castRange}]]</span>                                                               
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-6 text-center border-end border-top border-danger">
+                                    <div>
+                                        <span class="fw-bold text-danger">COMPONENTI</span>
+                                    </div>
+                                    <div>
+                                        <span>[[*{components}]]</span>                                       
+                                    </div>                                                                   
+                               </div>
+                                <div class="col-6 text-center border-top border-danger">
+                                    <div>
+                                        <span class="fw-bold text-danger">DURATA</span>
+                                    </div>
+                                    <div>
+                                        <span>[[*{duration}]]</span>                                       
+                                    </div>                                     
+                                </div>
+                            </div>
+                            <div class="row border border-danger mt-3 bg_custom text-dark">
+                                
+                                <div class="col-12 text-start my-3 ">
+                                <th:block th:if="${spell.materials.length() > 0}" >
+                                    <div class=" mb-2 ">
+                                      <span class="fw-bold"> Materiali:</span> [[*{materials}]]
+                                    </div>
+                                </th:block>
+                                    [[*{effect}]]
+                                </div>
+                            </div>
+                            <th:block th:if="${spell.upgrade.length() > 0}">
+                            <div class="text-center">
+                                ai livelli superiori
+                            </div>
+                            
+                                <div class="row border border-danger mt-2 bg_custom text-dark">
+                                    <div class="col-12 text-start my-3">
+                                    [[*{upgrade}]]
+                                </div>
+                                </div>
+                                
+                            </th:block>
+                        </div>
+                        <div class="mb-3" >
+                            <a th:href="@{/spells}" class="btn btn-primary"><i class="bi bi-arrow-left-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+
+    </footer>
+</body>

@@ -1,0 +1,57 @@
+
+
+import { useInitiative } from "../context/InitiativeContext"
+
+export default function FormInitiative() {
+    const { playerName, setPlayerName, playerInit, setPlayerInit, playerDex, setPlayerDex, addInitiative } = useInitiative()
+
+
+
+    return (
+
+        <form onSubmit={addInitiative}>
+            <div className="d-flex">
+                <div className="me-2">
+                    <label htmlFor="add-name">Nome:</label>
+                    <input
+                        id="add-name"
+                        className="form-control"
+                        type="text"
+                        value={playerName}
+                        onChange={e => { setPlayerName(e.target.value) }}
+                        placeholder="nome..."
+                        required
+                    />
+                </div>
+                <div className="me-2">
+                    <label htmlFor="add-initiative">Iniziativa:</label>
+                    <input
+                        id="add-initiative"
+                        className="form-control"
+                        type="number"
+                        value={playerInit}
+                        onChange={e => { setPlayerInit(e.target.value) }}
+                        placeholder="0"
+
+
+                    />
+                </div>
+                <div className="me-2">
+                    <label htmlFor="add-dex">Destrezza:</label>
+                    <input
+                        id="add-dex"
+                        className="form-control"
+                        type="number"
+                        value={playerDex}
+                        onChange={e => { setPlayerDex(e.target.value) }}
+                        placeholder="0"
+                    />
+                </div>
+            </div>
+            <div className="d-flex justify-content-center mt-2">
+                <button type="submit" className="btn btn-sm btn-primary">Aggiungi</button>
+            </div>
+
+        </form>
+    )
+}

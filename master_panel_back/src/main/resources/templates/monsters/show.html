@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>Scheda: [[${monster.name}]]</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+        <div class="container" th:object="${monster}">
+            <div class="row d-flex justify-content-center">
+                <div class="col-8 ">
+                    <div class="card mt-4  text-center ">
+                        <div class="card-header">
+                            <div class="fs-5 fw-bold">[[*{name}]]</div>
+                        </div>
+                        <div class="card-body mb-4 card_dimensions">
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <div class="img_container">
+                                        <img th:src="@{/images/{imageName}(imageName=*{image})}" alt=""
+                                            class="monster_image">
+                                    </div>
+
+                                </div>
+                                <!--immagine-->
+                                <div class="col-6 stats_container border-start mb-4">
+                                    <div class="row">
+                                        <div class="col-6 mb-3 border-bottom ">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="fw-bold">CA:</div>
+                                                <div class="ms-1">[[*{armorClass}]]</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6 mb-3 border-bottom ">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="fw-bold ">PF: </div>
+                                                <div class="ms-1"> [[*{lifePoint}]]</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- CA e PF-->
+
+                                    <div class="row border-bottom pb-3">
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <div class=" fw-bold me-1"> Movimento:</div>
+                                            <div>[[*{moviment}]]</div>
+                                        </div>
+                                    </div>
+                                    <!-- movimento -->
+
+                                    <div class="row">
+                                        <div class="col-4  border-bottom">
+                                            <div class="fw-bold">
+                                                FOR
+                                            </div>
+                                            <div>[[*{strength}]]</div>
+                                        </div>
+                                        <!-- forza-->
+
+                                        <div class="col-4  border-bottom">
+                                            <div class="fw-bold">
+                                                DEX
+                                            </div>
+                                            <div>[[*{dexterity}]]</div>
+                                        </div>
+                                        <!-- destrezza-->
+
+                                        <div class="col-4  border-bottom">
+                                            <div class="fw-bold">
+                                                COS
+                                            </div>
+                                            <div>[[*{constitution}]]</div>
+                                        </div>
+                                        <!-- costituzione-->
+
+                                        <div class="col-4  border-bottom">
+                                            <div class="fw-bold">
+                                                INT
+                                            </div>
+                                            <div>[[*{intelligence}]]</div>
+                                        </div>
+                                        <!-- inteligenza-->
+
+                                        <div class="col-4  border-bottom">
+                                            <div class="fw-bold">
+                                                SAG
+                                            </div>
+                                            <div>[[*{wisdom}]]</div>
+                                        </div>
+                                        <!-- sagezza-->
+
+                                        <div class="col-4  border-bottom">
+                                            <div class="fw-bold">
+                                                CAR
+                                            </div>
+                                            <div>[[*{charisma}]]</div>
+                                        </div>
+                                        <!-- carisma-->
+                                    </div>
+                                    <!-- statitstiche -->
+
+                                    <div class="row ">
+                                        <div th:unless="${#strings.isEmpty (monster.savingThrow)}"
+                                            class="col-12 border-bottom">
+                                            <div class="fw-bold">Tiri salvezza:</div>
+                                            <div>[[*{savingThrow}]]</div>
+                                        </div>
+                                        <!-- tiri salvezza-->
+
+                                        <div th:unless="${#strings.isEmpty (monster.sense)}"
+                                            class="col-12 border-bottom">
+                                            <div class="fw-bold">Sensi:</div>
+                                            <div>[[*{sense}]]</div>
+                                        </div>
+                                        <!-- sensi-->
+
+                                        <div th:unless="${#strings.isEmpty (monster.skills)}"
+                                            class="col-12 border-bottom">
+                                            <div class="fw-bold">Abilità:</div>
+                                            <div>[[*{skills}]]</div>
+                                        </div>
+                                        <!-- abilità-->
+
+                                        <div th:unless="${#strings.isEmpty (monster.immunity)}"
+                                            class="col-12 border-bottom">
+                                            <div class="fw-bold">Immunità:</div>
+                                            <div>[[*{immunity}]]</div>
+                                        </div>
+                                        <!-- immunità-->
+
+                                        <div th:unless="${#strings.isEmpty (monster.vulnerability)}"
+                                            class="col-12 border-bottom">
+                                            <div class="fw-bold">Vulnerabilità:</div>   
+                                            <div>[[*{vulnerability}]]</div>
+                                        </div>
+                                        <!-- vulnerabilità-->
+
+                                        <div th:unless="${#strings.isEmpty (monster.resistence)}"
+                                            class="col-12 border-bottom">
+                                            <div class="fw-bold">Resistenze:</div>
+                                            <div>[[*{resistence}]]</div>
+                                        </div>
+                                        <!-- resistenze-->
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <span class="fw-bold">Tratti:</span>
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                           <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning btn-sm"
+                                            th:href="@{/monsters/{id}/trait(id=*{id})}">
+                                            <i class="bi bi-plus-circle"></i>
+                                        </a> 
+                                        </div>
+                                        
+                                        <div>
+                                            <a class="btn btn-primary btn-sm" th:href="@{/trait/show/{id}  (id=*{id})}">
+                                                 <i class="bi bi-arrow-right-square"></i>
+                                            </a>
+                                        </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <span class="fw-bold">Azioni:</span>
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning btn-sm"
+                                                th:href="@{/monsters/{id}/actions(id=*{id})}">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-primary btn-sm" th:href="@{/actions/show/{id}  (id=*{id})}">
+                                                 <i class="bi bi-arrow-right-square"></i>
+                                            </a>
+                                        </div>
+                                        </div>
+                                        
+                                                                              
+                                    </div>
+                                    <!-- titolo azioni + aggiungere-->
+                                     <div class="d-flex justify-content-between align-items-center mt-3 ">
+                                        <span class="fw-bold">Azioni bonus:</span>
+                                        <div class="d-flex">
+                                           <div class="me-2">
+                                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning btn-sm"
+                                                th:href="@{/monsters/{id}/bonusActions(id=*{id})}">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-primary btn-sm" th:href="@{/bonusActions/show/{id}  (id=*{id})}">
+                                                 <i class="bi bi-arrow-right-square"></i>
+                                            </a>
+                                        </div> 
+                                        </div>
+                                        
+
+                                    </div>
+                                    <!-- titolo azioni bonus + aggiungere-->
+
+                                     
+                                    
+                                     <div class="d-flex justify-content-between align-items-center mt-3 ">
+                                        <span class="fw-bold">Reazioni:</span>
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning btn-sm"
+                                                th:href="@{/monsters/{id}/reactions(id=*{id})}">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-primary btn-sm" th:href="@{/reactions/show/{id}  (id=*{id})}">
+                                                 <i class="bi bi-arrow-right-square"></i>
+                                            </a>
+                                        </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 ">
+                                        <span class="fw-bold">Azioni leggendarie:</span>
+                                        <div class="d-flex">
+                                           <div class="me-2">
+                                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning btn-sm"
+                                                th:href="@{/monsters/{id}/legendActions(id=*{id})}">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-primary btn-sm" th:href="@{/legendActions/show/{id}  (id=*{id})}">
+                                                 <i class="bi bi-arrow-right-square"></i>
+                                            </a>
+                                        </div> 
+                                        </div>
+                                        
+                                    </div>
+
+                                    
+                                     
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3" >
+                            <a th:href="@{/monsters}" class="btn btn-primary"><i class="bi bi-arrow-left-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="height"></div>
+    </footer>
+    <th:block th:replace="~{fragments/script :: scripts}"></th:block>
+</body>

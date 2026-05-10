@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>spells</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+        <div class="container  mt-3 ">
+            <div class="row mt-5 bg_custom pt-3">
+                <div class="col-12 d-flex justify-content-between">
+                    <div>
+                        <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-sm btn-primary" href="/spells/create">
+                            <i class="bi bi-plus-square"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            Ordina per:
+                        </div>
+                        <div class="mx-3">
+
+                            <a th:href="@{/spells(name=${name}, order='asc')}" class="btn btn-primary">Livello <i
+                                    class="bi bi-arrow-down-circle"></i></a>
+                        </div>
+                        <div>
+                            <a th:href="@{/spells(name=${name}, order='desc')}" class="btn btn-primary">Livello <i
+                                    class="bi bi-arrow-up-circle"></i></a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-12 mt-3" th:if="${spells.size() > 0}">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="">LISTA DELLE MAGIE:</h3>
+
+                        <div>
+                            <form th:action="@{/spells}" method="get">
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control me-2" type="text" name="name" th:value="${name}"
+                                        placeholder="cerca..." aria-label="Search" />
+                                    <input type="hidden" name="order" th:value="${order}">
+                                    <button class="btn btn-primary " type="submit">cerca</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <table class="mt-3 table">
+                        <thead>
+                            <tr>
+                                <th> Nome</th>
+                                <th> Scuola</th>
+                                <th> livello</th>
+                                <th>Apri</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Modifica</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Elimina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="spell : ${spells}" th:object="${spell}">
+                                <td>[[*{name}]]</td>
+                                <td>[[*{school}]]</td>
+                                <td>
+                                    [[*{level}]]
+                                </td>
+                                <td>
+                                    <a th:href="@{/spells/{id}(id=*{id})}" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-arrow-right-square"></i>
+                                    </a>
+                                </td>
+                                <td sec:authorize="hasAuthority('ADMIN')">
+                                    <a th:href="@{/spells/edit/{id}(id=*{id})}" class="btn btn-success btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                                <td sec:authorize="hasAuthority('ADMIN')">
+                                    <div
+                                        th:replace="~{fragments/modal :: modal(*{id}, 'Eliminare il mostro definitivamente?',@{/spells/delete/{id}(id=*{id})})}">
+                                    </div>
+
+
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+
+
+                    </table>
+                </div>
+                <div class="col-12 d-flex justify-content-center mt-5 border-top" th:unless="${spells.size() > 0}">
+
+                    <p class="fs-5 mt-3"> nessuna magia nel database</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>

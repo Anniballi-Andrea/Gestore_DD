@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>lista azioni </title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main> 
+        <div class="container">
+            <div class="d-flex justify-content-center mt-4">
+                <div>
+                    <a th:href="@{/monsters/{id}(id=${monsterId})}" class="btn btn-primary">
+                        <i class="bi bi-arrow-left-square"></i>
+                    </a>
+                </div> 
+                    
+                </div>  
+            <div class="row">         
+            <div class="bg-light mt-2" th:if="${actions.size() > 0}">
+                <div class="row border-bottom" th:each="action : ${actions}">
+                    <div class="col-12 mt-2 mb-2">
+                                        
+                        <div>
+                            <span class="fw-bold">[[${action.name}]]: </span> 
+                             <span>[[${action.effect}]]</span>  
+                        </div> 
+                        <div class="d-flex justify-content-end">                      
+                            <div class="me-2">
+                                <a sec:authorize="hasAuthority('ADMIN')"  th:href="@{/actions/edit/{id}(id=${action.id})}" class="btn btn-success btn-sm">
+                                     <i class="bi bi-pencil"></i>                       
+                                                          
+                                 </a>                           
+                            </div>                            
+                             <div sec:authorize="hasAuthority('ADMIN')"th:replace="~{fragments/modal :: modal(|action-${action.id}|, 'confermi?', @{/actions/delete/{id}(id=${action.id})})}">                            
+                             </div>                                             
+                        </div>     
+                    </div>   
+                </div>                     
+            </div>
+            <div class="bg-light mt-2 text-center" th:unless="${actions.size() > 0}">
+                <div class="my-5">
+                    <h4>Azioni  non presenti</h4>
+                </div>
+                
+            </div>                
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <div>
+                    <a th:href="@{/monsters/{id}(id=${monsterId})}" class="btn btn-primary">
+                        <i class="bi bi-arrow-left-square"></i>
+                    </a>
+                </div> 
+                    
+                </div>
+                                                                            
+        </div>                                                              
+    </main>
+
+    <footer>
+        <div class="height"></div>
+    </footer>
+    <th:block th:replace="~{fragments/script :: scripts}"></th:block>
+</body>
