@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 
 export default function Header() {
 
@@ -14,7 +14,7 @@ export default function Header() {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <NavLink className="nav-link  text-light" aria-current="page" to="/">Home</NavLink>
+                                    <NavLink className="nav-link  text-light" to="/">Home</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink className="nav-link text-light" to="/monsters">Mostri</NavLink>

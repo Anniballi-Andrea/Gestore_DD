@@ -2,7 +2,6 @@ package org.master_panel.master_panel.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.master_panel.master_panel.model.Monster;
 import org.master_panel.master_panel.repository.MonsterRepository;
 import org.springframework.beans.factory.annotation.Autowired;

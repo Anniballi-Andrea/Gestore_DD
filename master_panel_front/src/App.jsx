@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { CardProvider } from "./context/CardContext"
 import SpellsPage from "./pages/SpellsPage"
 import { SpellProvider } from "./context/spellContext"
+import NotFound from "./pages/NotFound"
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/monsters" element={<MonstersPage />} />
                     <Route path="/spells" element={<SpellsPage />} />
+                    <Route path="*" element={<NotFound />} />
                   </Route>
                 </Routes>
               </CardProvider>
@@ -35,7 +37,6 @@ function App() {
           </BrowserRouter>
         </InitiativeProvider>
       </MonsterProvider>
-
 
     </>
   )
