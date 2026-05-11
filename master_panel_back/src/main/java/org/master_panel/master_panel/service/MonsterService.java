@@ -29,10 +29,10 @@ public class MonsterService {
 
         } else if ((name == null || name.isBlank()) && order.equals("asc")) {
 
-            return monsterRepo.findAllByNameContainingOrderByLevelAsc(name);
+            return monsterRepo.findAllByOrderByLevelAsc();
 
         } else if ((name == null || name.isBlank()) && order.equals("desc")) {
-            return monsterRepo.findAllByNameContainingOrderByLevelDesc(name);
+            return monsterRepo.findAllByOrderByLevelDesc();
 
         } else if (order.equals("asc")) {
             return monsterRepo.findAllByNameContainingOrderByLevelAsc(name);

@@ -1,18 +1,10 @@
 import { useState } from "react";
-import { useMonster } from "../context/MonsterContext";
 
 export default function SearchItem({ name, setName, array }) {
 
     const [search, setSearch] = useState(false)
 
-    const arrayFiltred = array.filter((el) => {
-        if (name) {
-            return el.name.toLowerCase().includes(name.toLowerCase())
-        }
-
-    });
-
-
+    const arrayFiltred = array.filter((el) => el.name.toLowerCase().includes(name.toLowerCase()))
 
     const searchForAdd = ((name) => {
         setSearch(true)

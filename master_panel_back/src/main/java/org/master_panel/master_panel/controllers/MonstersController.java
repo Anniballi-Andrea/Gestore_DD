@@ -40,30 +40,35 @@ public class MonstersController {
         return "monsters/index";
     }
 
-    @GetMapping("/monstersByLevelAsc")
-    private String byLevelAsc(Model model) {
-        List<Monster> monsters = monsterService.getAllByLevelAsc();
-        model.addAttribute("monsters", monsters);
-        return "monsters/index";
+    /*
+     * @GetMapping("/monstersByLevelAsc")
+     * private String byLevelAsc(Model model) {
+     * List<Monster> monsters = monsterService.getAllByLevelAsc();
+     * model.addAttribute("monsters", monsters);
+     * return "monsters/index";
+     * 
+     * }
+     * 
+     * @GetMapping("/monstersByLevelDesc")
+     * private String byLevelDesc(Model model) {
+     * List<Monster> monsters = monsterService.getAllByLevelDesc();
+     * model.addAttribute("monsters", monsters);
+     * return "monsters/index";
+     * 
+     * }
+     */
 
-    }
-
-    @GetMapping("/monstersByLevelDesc")
-    private String byLevelDesc(Model model) {
-        List<Monster> monsters = monsterService.getAllByLevelDesc();
-        model.addAttribute("monsters", monsters);
-        return "monsters/index";
-
-    }
-
-    @GetMapping("/searchByName")
-    public String searchName(@RequestParam(name = "name") String name, Model model) {
-        List<Monster> pizzas = monsterService.findByNameContainig(name);
-
-        model.addAttribute("monsters", pizzas);
-
-        return "monsters/index";
-    }
+    /*
+     * @GetMapping("/searchByName")
+     * public String searchName(@RequestParam(name = "name") String name, Model
+     * model) {
+     * List<Monster> pizzas = monsterService.findByNameContainig(name);
+     * 
+     * model.addAttribute("monsters", pizzas);
+     * 
+     * return "monsters/index";
+     * }
+     */
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {

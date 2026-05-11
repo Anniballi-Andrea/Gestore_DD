@@ -1,5 +1,4 @@
 
-
 import FormGetMoster from "../components/FormGetMonster";
 import { useMonster } from "../context/MonsterContext";
 import FormInitiative from "../components/FormInitiative";
@@ -101,7 +100,7 @@ export default function Home() {
                             </div>
                             {
                                 battle.length > 0 ? (battle.map((el, i) => (
-                                    <div key={el.instanceId} className="col-lg-4 mt-3 mb-5" >
+                                    <div key={el.instanceId} className="col-lg-3 mt-3 mb-5" >
 
                                         {status && <EncounterCard el={el} i={i} />}
 
