@@ -50,7 +50,7 @@ public class ActionsController {
 
         actionService.create(formAction);
 
-        return "redirect:/monsters/" + formAction.getMonster().getId();
+        return "redirect:/actions/show/" + formAction.getMonster().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -70,7 +70,7 @@ public class ActionsController {
 
         actionService.update(formAction);
 
-        return "redirect:/monsters/" + formAction.getMonster().getId();
+        return "redirect:/actions/show/" + formAction.getMonster().getId();
 
     }
 
@@ -84,6 +84,6 @@ public class ActionsController {
         actionService.delete(actionToDelete);
         ;
 
-        return "redirect:/monsters/" + monsterId;
+        return "redirect:/actions/show/" + monsterId;
     }
 }

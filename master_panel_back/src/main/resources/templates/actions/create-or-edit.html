@@ -35,8 +35,9 @@
                 </div>
                 <div class="my-3 pb-4">
                     <label class="form-label" for="effect">Descrizione:</label>
-                    <textarea class="form-control" type="file" id="effect" placeholder="inserisci cosa fa l'azione"
-                        th:field="*{effect}" th:errorClass="is-invalid"></textarea>
+                    <textarea class="form-control overflow-y-scroll" id="effect"
+                        placeholder="inserisci cosa fa l'azione" th:field="*{effect}" th:errorClass="is-invalid"
+                        rows="6"></textarea>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('effect')}">
                         <ul>
                             <li th:each="error : ${#fields.errors('effect')}" th:text="${error}" />
@@ -47,7 +48,8 @@
                             <button class="btn btn-primary" type="submit">Conferma</button>
                         </div>
                         <div class="ms-5">
-                            <a class="btn btn-primary " th:href="@{/monsters/{id}(id=*{monster.id})}"><i class="bi bi-arrow-left-square"></i></a>
+                            <a class="btn btn-primary " th:href="@{/actions/show/{id}(id=*{monster.id})}"><i
+                                    class="bi bi-arrow-left-square"></i></a>
                         </div>
                     </div>
                 </div>
@@ -55,4 +57,5 @@
         </div>
     </main>
 </body>
+
 </html>

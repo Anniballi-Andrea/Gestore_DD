@@ -50,7 +50,7 @@ public class LegendActionsController {
 
         legendService.create(formLegendAction);
 
-        return "redirect:/monsters/" + formLegendAction.getMonster().getId();
+        return "redirect:/legendActions/show/" + formLegendAction.getMonster().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -71,7 +71,7 @@ public class LegendActionsController {
 
         legendService.update(formLegendAction);
 
-        return "redirect:/monsters/" + formLegendAction.getMonster().getId();
+        return "redirect:/legendActions/show/" + formLegendAction.getMonster().getId();
 
     }
 
@@ -84,6 +84,6 @@ public class LegendActionsController {
 
         legendService.delete(legendActionToDelete);
 
-        return "redirect:/monsters/" + monsterId;
+        return "redirect:/legendActions/show/" + monsterId;
     }
 }

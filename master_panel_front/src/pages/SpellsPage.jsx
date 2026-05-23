@@ -26,7 +26,7 @@ export default function SpellsPage() {
     return (
         <>
             <div className="container mt-5">
-                <div className="row row-cols-4 justify-content-center mt-4">
+                <div className="row row-cols-3 justify-content-center mt-4">
                     {spellPref.length > 0 &&
                         spellPref.map((el) => (
                             <div className="mb-3" key={`pref-${el.id}`} onClick={() => removePreferite(el.id)}>
@@ -43,7 +43,7 @@ export default function SpellsPage() {
                 </div>
             </div>
             <div className="container">
-                <div className="row row-cols-4 justify-content-center mt-4">
+                <div className="row row-cols-3 justify-content-center mt-4">
                     {spellName.length > 2 ? (
                         filtredSpell.map((el) => (
                             <div className="mb-3" key={el.id} onClick={() => addToPreferite(el)} >

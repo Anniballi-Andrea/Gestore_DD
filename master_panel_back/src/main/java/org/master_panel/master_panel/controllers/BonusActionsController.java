@@ -51,7 +51,7 @@ public class BonusActionsController {
 
         bonusActionsService.create(formBonusAction);
 
-        return "redirect:/monsters/" + formBonusAction.getMonster().getId();
+        return "redirect:/bonusActions/show/" + formBonusAction.getMonster().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -72,7 +72,7 @@ public class BonusActionsController {
 
         bonusActionsService.update(formBonusAction);
 
-        return "redirect:/monsters/" + formBonusAction.getMonster().getId();
+        return "redirect:/bonusActions/show/" + formBonusAction.getMonster().getId();
 
     }
 
@@ -86,6 +86,6 @@ public class BonusActionsController {
         bonusActionsService.delete(bonusActionToDelete);
         ;
 
-        return "redirect:/monsters/" + monsterId;
+        return "redirect:/bonusActions/show/" + monsterId;
     }
 }

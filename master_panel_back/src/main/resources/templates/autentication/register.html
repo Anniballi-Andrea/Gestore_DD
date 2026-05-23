@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>Register-master Panel</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4 bg_custom mt-2">
+                    <p class="fs-4"> Crea un nuovo account:</p>
+                    <form th:action="@{/register}" th:object="${registration}" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nome Utente</label>
+                            <input type="text" class="form-control" id="username" th:field="*{username}" required>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('username')}"
+                                th:errors="*{username}">
+                            </div>
+                            <div class="text-danger small" th:if="${usernameError}" th:text="${usernameError}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" required>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('password')}"
+                                th:errors="*{password}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Conferma Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                required>
+                            <div class="text-danger small" th:if="${passwordError}" th:text="${passwordError}"></div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary btn-sm " type="submit"> Registrati</button>
+                        </div>
+
+
+                    </form>
+                    <div th:if="${param.error}" class="alert alert-danger mt-3" role="alert">
+                        Username o Password errati.
+                    </div>
+
+                    <div th:if="${param.logout}" class="alert alert-success mt-3" role="alert">
+                        Disconnessione effettuata con successo.
+                    </div>
+
+
+                    <div class="text-center mt-3">
+                        <p>hai già un account? <a th:href="@{/login}">Accedi</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>

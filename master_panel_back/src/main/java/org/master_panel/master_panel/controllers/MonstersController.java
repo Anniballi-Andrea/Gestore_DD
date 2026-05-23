@@ -1,5 +1,9 @@
 package org.master_panel.master_panel.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.master_panel.master_panel.model.Action;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 
@@ -87,13 +92,42 @@ public class MonstersController {
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("monster") Monster formMonster, BindingResult bindingResult,
-            Model model) {
+            Model model, @RequestParam(name = "imageFile", required = false) MultipartFile file) {
+
         if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            model.addAttribute("edit", false);
             return "monsters/create-or-edit";
         }
 
+        if (file != null && !file.isEmpty()) {
+            try {
+                String uploadDir = "src/main/resources/static/images/";
+                String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+                Path uploadPath = Paths.get(uploadDir);
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+                Path filePath = uploadPath.resolve(fileName);
+
+                Files.write(filePath, file.getBytes());
+
+                formMonster.setImage(fileName);
+
+            } catch (IOException e) {
+                System.err.println("Errore fatale di I/O: " + e.getMessage());
+                e.printStackTrace();
+
+            }
+        } else {
+            formMonster.setImage("placeholder.jpg");
+        }
         monsterService.create(formMonster);
+
         return "redirect:/monsters";
+
     }
 
     @GetMapping("/edit/{id}")
@@ -106,11 +140,40 @@ public class MonstersController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateMonster(@Valid @ModelAttribute("monster") Monster formMonster,
-            BindingResult bindingResult, Model model) {
+    public String updateMonster(@PathVariable("id") Integer id, @Valid @ModelAttribute("monster") Monster formMonster,
+            BindingResult bindingResult,
+            Model model, @RequestParam(name = "imageFile", required = false) MultipartFile file) {
 
         if (bindingResult.hasErrors()) {
             return "monsters/create-or-edit";
+        }
+
+        Monster editMonster = monsterService.getById(id);
+
+        if (!file.isEmpty()) {
+            try {
+                String uploadDir = "src/main/resources/static/images/";
+                String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+                Path uploadPath = Paths.get(uploadDir);
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                Path filePath = uploadPath.resolve(fileName);
+
+                Files.write(filePath, file.getBytes());
+
+                formMonster.setImage(fileName);
+
+            } catch (IOException e) {
+                System.err.println("Errore fatale di I/O: " + e.getMessage());
+                e.printStackTrace();
+
+            }
+        } else {
+            formMonster.setImage(editMonster.getImage());
         }
 
         monsterService.update(formMonster);
@@ -118,10 +181,26 @@ public class MonstersController {
         return "redirect:/monsters";
     }
 
+    /*
+     * @PostMapping("/edit/{id}")
+     * public String updateMonster(@Valid @ModelAttribute("monster") Monster
+     * formMonster,
+     * BindingResult bindingResult, Model model) {
+     * 
+     * if (bindingResult.hasErrors()) {
+     * return "monsters/create-or-edit";
+     * }
+     * 
+     * monsterService.update(formMonster);
+     * 
+     * return "redirect:/monsters";
+     * }
+     */
+
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         monsterService.deleteById(id);
-        ;
+
         return "redirect:/monsters";
     }
 

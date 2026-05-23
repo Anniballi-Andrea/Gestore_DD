@@ -16,8 +16,8 @@
 
 
             <form id="trait-create-form"
-                th:action="${edit} ? @{/legendActions/edit/{id}(id=${legendAction.id})} : @{/legendActions/create}" method="post"
-                th:object="${legendAction}">
+                th:action="${edit} ? @{/legendActions/edit/{id}(id=${legendAction.id})} : @{/legendActions/create}"
+                method="post" th:object="${legendAction}">
                 <h1 th:if="${edit}">Modifica un azione legendaria a: [[*{monster.name}]]</h1>
                 <h1 th:unless="${edit}">Aggiungi un azione legendaria a: [[*{monster.name}]]</h1>
 
@@ -37,19 +37,21 @@
                 </div>
                 <div class="my-3 pb-4">
                     <label class="form-label" for="effect">Descrizione:</label>
-                    <textarea class="form-control" type="file" id="effect" placeholder="inserisci cosa fa l'azione"
-                        th:field="*{effect}" th:errorClass="is-invalid"></textarea>
+                    <textarea class="form-control overflow-y-scroll" id="effect"
+                        placeholder="inserisci cosa fa l'azione" th:field="*{effect}" th:errorClass="is-invalid"
+                        rows="6"></textarea>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('effect')}">
                         <ul>
                             <li th:each="error : ${#fields.errors('effect')}" th:text="${error}" />
                         </ul>
                     </div>
                     <div class="col-12 d-flex justify-content-center mt-4 pb-4">
-                       <div>
+                        <div>
                             <button class="btn btn-primary" type="submit">Conferma</button>
                         </div>
                         <div class="ms-5">
-                            <a class="btn btn-primary " th:href="@{/monsters/{id}(id=*{monster.id})}"><i class="bi bi-arrow-left-square"></i></a>
+                            <a class="btn btn-primary " th:href="@{/legendActions/show/{id}(id=*{monster.id})}"><i
+                                    class="bi bi-arrow-left-square"></i></a>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>Login-master Panel</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4 bg_custom mt-3 pt-2">
+
+                    <div th:if="${param.error}" class="alert alert-danger mt-3" role="alert">
+                        Username o Password errati.
+                    </div>
+
+                    <div th:if="${param.logout}" class="alert alert-success mt-3" role="alert">
+                        Disconnessione effettuata con successo.
+                    </div>
+                    <form th:action="@{/login}" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required
+                                autocomplete="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required
+                                autocomplete="current-password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me">
+                            <label class="form-check-label" for="rememberMe">Ricordami su questo computer</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Accedi</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Non hai un account? <a th:href="@{/register}">Registrati qui</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>

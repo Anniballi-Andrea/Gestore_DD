@@ -2,6 +2,7 @@ package org.master_panel.master_panel.model;
 
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,10 +22,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "L'username non può essere vuoto ")
     private String username;
 
-    @Size(min = 6, message = "lunghezza minima 6 caratteri")
+    @Size(min = 5, message = "lunghezza minima 6 caratteri")
     @NotBlank(message = "La password non può essere vuota ")
     private String password;
 

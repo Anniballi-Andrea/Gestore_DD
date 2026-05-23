@@ -3,7 +3,7 @@
 
 <head>
     <th:block th:replace="~{fragments/style :: style}"></th:block>
-    
+
     <title th:if="${edit}">Modifica Magia</title>
     <title th:unless="${edit}">Aggiungi Magia</title>
 </head>
@@ -13,10 +13,10 @@
         <th:block th:replace="~{fragments/nav :: nav}"></th:block>
     </header>
     <main>
-        
+
         <div class="container bg-light">
             <form id="monster-create-form" th:action="${edit} ? @{|/spells/edit/${spell.id}|} : @{/spells/create}"
-                method="post" th:object="${spell}" >
+                method="post" th:object="${spell}">
                 <div class="pt-3 mt-3" th:if="${#fields.hasErrors()}">
                     <p class="text-danger">completa i campi con un errore</p>
                 </div>
@@ -24,38 +24,38 @@
                     <div class="col-3 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="name">Nome dela magia:</label>
-                            <input class="form-control" type="text" id="name" placeholder="Nome..."
-                                th:field="*{name}" th:errorClass="is-invalid">
+                            <input class="form-control" type="text" id="name" placeholder="Nome..." th:field="*{name}"
+                                th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
                                 <ul>
                                     <li th:each="error : ${#fields.errors('name')}" th:text="${error}" />
                                 </ul>
                             </div>
                         </div>
-                        
+
                     </div>
                     <!-- Input nome-->
 
-                     <div class="col-3 mb-4">
+                    <div class="col-3 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="school">Scuola di magia:</label>
                             <input class="form-control" type="text" id="school" placeholder="Scuola..."
-                                th:field="*{school}" th:errorClass="is-invalid">
+                                th:field="*{school}" th:errorClass="is-invalid" rows="6">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('school')}">
                                 <ul>
                                     <li th:each="error : ${#fields.errors('school')}" th:text="${error}" />
                                 </ul>
                             </div>
                         </div>
-                        
+
                     </div>
                     <!-- Input scuola-->
 
                     <div class="col-3 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="level">Livello:</label>
-                            <input class="form-control" type="number" id="level" placeholder="0"
-                                th:field="*{level}" th:errorClass="is-invalid">
+                            <input class="form-control" type="number" id="level" placeholder="0" th:field="*{level}"
+                                th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('level')}">
                                 <ul>
                                     <li th:each="error : ${#fields.errors('level')}" th:text="${error}" />
@@ -79,7 +79,7 @@
                     </div>
                     <!-- Input tempo di lancio-->
 
-                     <div class="col-4 mb-4">
+                    <div class="col-4 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="castRange">gittata:</label>
                             <input class="form-control" type="text" id="castRange" placeholder="18m"
@@ -107,7 +107,7 @@
                     </div>
                     <!-- Input componenti-->
 
-                     <div class="col-4 mb-4">
+                    <div class="col-4 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="duration">durata:</label>
                             <input class="form-control" type="text" id="duration" placeholder="1 ora."
@@ -123,7 +123,7 @@
                     <div class="col-12 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="materials">materiali:</label>
-                            <input class="form-control" type="text"  id="materials" placeholder="materiali..."
+                            <input class="form-control" type="text" id="materials" placeholder="materiali..."
                                 th:field="*{materials}" th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('materials')}">
                                 <ul>
@@ -133,36 +133,38 @@
                         </div>
                     </div>
                     <!-- Input materiali-->
-                     <div class="col-12 mb-4">
+                    <div class="col-12 mb-4">
                         <label class="form-label" for="effect">effetto:</label>
-                    <textarea class="form-control" rows="6"  type="file" id="effect" placeholder="inserisci cosa fa la magia..."
-                        th:field="*{effect}" th:errorClass="is-invalid"></textarea>
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('effect')}">
-                        <ul>
-                            <li th:each="error : ${#fields.errors('effect')}" th:text="${error}" />
-                        </ul>
+                        <textarea class="form-control overflow-y-scroll" rows="6" id="effect"
+                            placeholder="inserisci cosa fa la magia..." th:field="*{effect}"
+                            th:errorClass="is-invalid"></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('effect')}">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('effect')}" th:text="${error}" />
+                            </ul>
+                        </div>
                     </div>
-                     </div>
-                     <!-- Input effetto-->
+                    <!-- Input effetto-->
 
-                      <div class="col-12 mb-4">
+                    <div class="col-12 mb-4">
                         <label class="form-label" for="upgrade">ai livelli superiori:</label>
-                    <textarea class="form-control" rows="4"  type="file" id="upgrade" placeholder="inserisci come migliora ai livelli superiori..."
-                        th:field="*{upgrade}" th:errorClass="is-invalid"></textarea>
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('upgrade')}">
-                        <ul>
-                            <li th:each="error : ${#fields.errors('upgrade')}" th:text="${error}" />
-                        </ul>
+                        <textarea class="form-control overflow-y-scroll" rows="4" id="upgrade"
+                            placeholder="inserisci come migliora ai livelli superiori..." th:field="*{upgrade}"
+                            th:errorClass="is-invalid"></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('upgrade')}">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('upgrade')}" th:text="${error}" />
+                            </ul>
+                        </div>
                     </div>
-                     </div>
-                     <!-- Input livelli dopo-->
+                    <!-- Input livelli dopo-->
 
-                     
 
-                <div class="col-12 d-flex justify-content-center mt-4 pb-4">
-                    <button class="btn btn-primary" type="submit">Conferma</button>
+
+                    <div class="col-12 d-flex justify-content-center mt-4 pb-4">
+                        <button class="btn btn-primary" type="submit">Conferma</button>
+                    </div>
                 </div>
-            </div>
             </form>
         </div>
     </main>

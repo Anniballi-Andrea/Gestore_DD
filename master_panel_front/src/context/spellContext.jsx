@@ -20,7 +20,7 @@ export function SpellProvider({ children }) {
 
     function getAllSpells() {
         axios
-            .get("http://localhost:8080/api/spells")
+            .get("http://100.81.239.92:8080/api/spells")
             .then((response) => {
                 const data = response.data;
                 setAllSpells(data);

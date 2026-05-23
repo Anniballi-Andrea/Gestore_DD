@@ -30,7 +30,7 @@ public class Spell {
     @Column(nullable = false)
     @NotNull(message = "il livello non deve essere vuoto")
     @Min(0)
-    private int level;
+    private Integer level;
 
     @Column(nullable = false)
     @NotNull(message = "il tempo di lancio non deve essere vuoto")

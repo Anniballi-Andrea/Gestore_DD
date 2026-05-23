@@ -48,7 +48,7 @@ public class TraitController {
 
         traitService.create(formTrait);
 
-        return "redirect:/monsters/" + formTrait.getMonster().getId();
+        return "redirect:/trait/show/" + formTrait.getMonster().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -68,7 +68,7 @@ public class TraitController {
 
         traitService.update(formTrait);
 
-        return "redirect:/monsters/" + formTrait.getMonster().getId();
+        return "redirect:/trait/show/" + formTrait.getMonster().getId();
 
     }
 
@@ -81,6 +81,6 @@ public class TraitController {
 
         traitService.delete(traitToDelete);
 
-        return "redirect:/monsters/" + monsterId;
+        return "redirect:/trait/show/" + monsterId;
     }
 }

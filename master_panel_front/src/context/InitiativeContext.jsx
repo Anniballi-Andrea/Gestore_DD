@@ -3,23 +3,77 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
+import { useCampaign } from "./CampaignContext";
 
 const InitiativeContext = createContext();
 
 export function InitiativeProvider({ children }) {
-    const [playerName, setPlayerName] = useState("")
-    const [playerInit, setPlayerInit] = useState("")
-    const [playerDex, setPlayerDex] = useState("")
-    const [turnOn, setTurnOn] = useState(0)
-    const [round, setRound] = useState(0)
-    const [initiative, setInitiative] = useState(() => {
-        const savedInitiative = localStorage.getItem("battle-initiative");
+
+    const { currentCampaign } = useCampaign()
+
+    const initStorageKey = `battle-initiative-${currentCampaign}`
+    const roundStorageKey = `battle-round-${currentCampaign}`
+    const turnStorageKey = `battle-turn-${currentCampaign}`
+
+    const [initiative, _setInitiative] = useState(() => {
+        const savedInitiative = localStorage.getItem(initStorageKey);
         return savedInitiative ? JSON.parse(savedInitiative) : []
     });
 
     useEffect(() => {
-        localStorage.setItem("battle-initiative", JSON.stringify(initiative));
-    }, [initiative]);
+        const savedInitiative = localStorage.getItem(initStorageKey);
+        _setInitiative(savedInitiative ? JSON.parse(savedInitiative) : [])
+    }, [initStorageKey]);
+
+    const setInitiative = (action) => {
+        _setInitiative((prev) => {
+            const newState = typeof action === 'function' ? action(prev) : action;
+            localStorage.setItem(initStorageKey, JSON.stringify(newState));
+            return newState;
+        });
+    }
+
+
+    const [playerName, setPlayerName] = useState("")
+    const [playerInit, setPlayerInit] = useState("")
+    const [playerDex, setPlayerDex] = useState("")
+
+    const [turnOn, _setTurnOn] = useState(() => {
+        const savedTurn = localStorage.getItem(turnStorageKey);
+        return savedTurn ? JSON.parse(savedTurn) : 0
+    });
+
+    useEffect(() => {
+        const savedTurn = localStorage.getItem(turnStorageKey);
+        _setTurnOn(savedTurn ? JSON.parse(savedTurn) : 0)
+    }, [turnStorageKey]);
+
+    const setTurnOn = (action) => {
+        _setTurnOn((prev) => {
+            const newState = typeof action === 'function' ? action(prev) : action;
+            localStorage.setItem(turnStorageKey, JSON.stringify(newState));
+            return newState;
+        });
+    }
+
+    const [round, _setRound] = useState(() => {
+        const savedRound = localStorage.getItem(roundStorageKey);
+        return savedRound ? JSON.parse(savedRound) : 0
+    });
+
+    useEffect(() => {
+        const savedRound = localStorage.getItem(roundStorageKey);
+        _setRound(savedRound ? JSON.parse(savedRound) : 0)
+    }, [roundStorageKey]);
+
+    const setRound = (action) => {
+        _setRound((prev) => {
+            const newState = typeof action === 'function' ? action(prev) : action;
+            localStorage.setItem(roundStorageKey, JSON.stringify(newState));
+            return newState;
+        });
+    }
+
 
     const finalInitiative = [...initiative].sort((a, b) => {
         if (Number(b.initiative) !== Number(a.initiative)) {

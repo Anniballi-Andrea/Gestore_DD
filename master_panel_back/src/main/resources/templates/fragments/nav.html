@@ -7,30 +7,42 @@
 <th:block th:fragment="nav">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/home">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER','ADMIN')">
                         <a class="nav-link active" aria-current="page" href="/monsters">Tutti i mostri</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER','ADMIN','SPELLER')">
                         <a class="nav-link active" aria-current="page" href="/spells">Tutte le magie</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                        <a class="nav-link active" aria-current="page" href="/users">Tutti gli utenti</a>
                     </li>
                 </ul>
             </div>
             <div class="user-info d-flex">
-                Utente: <span sec:authentication="name" class="fw-bold ms-1 me-2"></span>
-                <div sec:authorize="hasAuthority('ADMIN')">
-                    Role: <span class="fw-bold me-2" sec:authentication="principal.authorities"></span>
-                </div>
-                <a class="btn btn-sm btn-outline-primary" href="/logout">Sign out</a>
+                <th:block sec:authorize="isAuthenticated()">
+                    Utente: <span sec:authentication="name" class="fw-bold ms-1 me-2"></span>
+                    <div sec:authorize="hasAnyAuthority('ADMIN','SPELLER')">
+                        Role: <span class="fw-bold me-2" sec:authentication="principal.authorities"></span>
+                    </div>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Logout</button>
+                    </form>
+                </th:block>
 
-
+                <th:block sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="btn btn-sm btn-outline-primary">Accedi</a>
+                </th:block>
             </div>
+
+            <!--<a class="btn btn-sm btn-outline-primary" href="/logout">Sign out</a>-->
+
         </div>
     </nav>
 

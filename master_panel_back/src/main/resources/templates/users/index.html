@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title>Lista Utenti</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+        <div class="container  mt-3 ">
+            <div class="row mt-5 bg_custom pt-3">
+
+                <div class="col-12 mt-3" th:if="${users.size() > 0}">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="">LISTA DEGLI UTENTI:</h3>
+                        <div>
+                            <form th:action="@{/users}" method="get">
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control me-2" type="text" name="name" th:value="${name}"
+                                        placeholder="cerca..." aria-label="Search" />
+                                    <input type="hidden" name="order" th:value="${order}">
+                                    <button class="btn btn-primary " type="submit">cerca</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <table class="mt-3 table">
+                        <thead>
+                            <tr>
+                                <th> Username</th>
+                                <th> Ruolo</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Azioni</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}" th:object="${user}">
+                                <td>[[*{Username}]]</td>
+                                <td>
+                                    [[*{Roles}]]
+                                </td>
+
+                                <td sec:authorize="hasAuthority('ADMIN')">
+                                    <div class="d-flex">
+                                        <div class="me-2">
+                                            <form th:action="@{/users/promoteToAdmin/{id}(id=*{id})}" method="post">
+                                                <button class="btn btn-success btn-sm"> Admin</button>
+                                            </form>
+                                        </div>
+                                        <div class="me-2">
+                                            <form th:action="@{/users/demoteToUser/{id}(id=*{id})}" method="post">
+                                                <button class="btn btn-success btn-sm"> User</button>
+                                            </form>
+                                        </div>
+                                        <div class="me-2">
+                                            <form th:action="@{/users/promoteToSpeller/{id}(id=*{id})}" method="post">
+                                                <button class="btn btn-success btn-sm"> Speller</button>
+                                            </form>
+                                        </div>
+                                        <div
+                                            th:replace="~{fragments/modal :: modal(*{id}, 'Eliminare questo utente definitivamente?',@{/users/delete/{id}(id=*{id})})}">
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+
+
+                    </table>
+                </div>
+                <div class="col-12 mt-3" th:unless="${users.size() > 0}">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="">LISTA DEGLI UTENTI:</h3>
+                        <div>
+                            <form th:action="@{/users}" method="get">
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control me-2" type="text" name="name" th:value="${name}"
+                                        placeholder="cerca..." aria-label="Search" />
+                                    <input type="hidden" name="order" th:value="${order}">
+                                    <button class="btn btn-primary " type="submit">cerca</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-5 border-top">
+                        <p class="fs-5 mt-3"> nessun utente registrato</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <th:block th:replace="~{fragments/script :: scripts}"></th:block>
+</body>

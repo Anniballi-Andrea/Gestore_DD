@@ -9,6 +9,8 @@ import { CardProvider } from "./context/CardContext"
 import SpellsPage from "./pages/SpellsPage"
 import { SpellProvider } from "./context/spellContext"
 import NotFound from "./pages/NotFound"
+import SessionNote from "./pages/SessionNote"
+import { CampaignProvider } from "./context/CampaignContext"
 
 
 function App() {
@@ -18,26 +20,27 @@ function App() {
 
   return (
     <>
-
-      <MonsterProvider>
-        <InitiativeProvider>
-          <BrowserRouter>
-            <SpellProvider>
-              <CardProvider>
-                <Routes>
-                  <Route element={<DefaultLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/monsters" element={<MonstersPage />} />
-                    <Route path="/spells" element={<SpellsPage />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Route>
-                </Routes>
-              </CardProvider>
-            </SpellProvider>
-          </BrowserRouter>
-        </InitiativeProvider>
-      </MonsterProvider>
-
+      <CampaignProvider>
+        <MonsterProvider>
+          <InitiativeProvider>
+            <BrowserRouter>
+              <SpellProvider>
+                <CardProvider>
+                  <Routes>
+                    <Route element={<DefaultLayout />}>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/monsters" element={<MonstersPage />} />
+                      <Route path="/spells" element={<SpellsPage />} />
+                      <Route path="/session_note" element={<SessionNote />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
+                  </Routes>
+                </CardProvider>
+              </SpellProvider>
+            </BrowserRouter>
+          </InitiativeProvider>
+        </MonsterProvider>
+      </CampaignProvider>
     </>
   )
 }

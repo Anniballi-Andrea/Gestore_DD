@@ -50,7 +50,7 @@ public class ReactionsController {
 
         reactionsService.create(formReactions);
 
-        return "redirect:/monsters/" + formReactions.getMonster().getId();
+        return "redirect:/reactions/show/" + formReactions.getMonster().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -71,7 +71,7 @@ public class ReactionsController {
 
         reactionsService.update(formReaction);
 
-        return "redirect:/monsters/" + formReaction.getMonster().getId();
+        return "redirect:/reactions/show/" + formReaction.getMonster().getId();
 
     }
 
@@ -85,6 +85,6 @@ public class ReactionsController {
         reactionsService.delete(reactionToDelete);
         ;
 
-        return "redirect:/monsters/" + monsterId;
+        return "redirect:/reactions/show/" + monsterId;
     }
 }

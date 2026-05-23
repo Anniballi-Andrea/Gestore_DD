@@ -32,7 +32,7 @@ export default function MonstersPage() {
     return (
         <>
             <div className="container mt-5">
-                <div className="row row-cols-4 justify-content-center mt-4">
+                <div className="row row-cols-3 justify-content-center mt-4">
                     {monsterPref.length > 0 &&
                         monsterPref.map((el) => (
                             <div key={`pref-${el.id}`} onClick={() => removePreferite(el.id)}>
@@ -48,7 +48,7 @@ export default function MonstersPage() {
                 </div>
             </div>
             <div className="container">
-                <div className="row row-cols-4 justify-content-center mt-5">
+                <div className="row row-cols-3 justify-content-center mt-5">
                     {monsterName.length > 2 ? (
                         filtredMonster.map((el) => (
                             <div key={el.id} onClick={() => addToPreferite(el)} >

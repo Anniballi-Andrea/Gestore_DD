@@ -33,7 +33,7 @@ public class Monster {
     @NotNull(message = "la CA non può essere vuota")
 
     @Min(0)
-    private int armorClass;
+    private Integer armorClass;
 
     @NotNull(message = "la vita non può essere vuota")
     @Min(1)
@@ -100,6 +100,12 @@ public class Monster {
     @Size(max = 100)
     private String image;
 
+    @Lob
+    private String size;
+
+    @Lob
+    private String type;
+
     @OneToMany(mappedBy = "monster", cascade = { CascadeType.REMOVE })
     private List<Trait> traits;
 
@@ -136,11 +142,11 @@ public class Monster {
         this.name = name;
     }
 
-    public int getArmorClass() {
+    public Integer getArmorClass() {
         return this.armorClass;
     }
 
-    public void setArmorClass(int armorClass) {
+    public void setArmorClass(Integer armorClass) {
         this.armorClass = armorClass;
     }
 
@@ -320,12 +326,36 @@ public class Monster {
         this.legendActions = legendActions;
     }
 
+    public String getSize() {
+        return this.size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<Trait> getTraits() {
+        return this.traits;
+    }
+
+    public void setTraits(List<Trait> traits) {
+        this.traits = traits;
+    }
+
     @Override
 
     public String toString() {
         return String.format(
-                "id: %d nome: %s ca: %d pf: %d movimento: %s forza: %d destrezza: %d costituzione: %d inteligenza: %d sagezza: %d carisma: %d initiative: %d tiri salvezza: %s sensi: %s abilità: %s immunità: %s resistenze: %s vulnerabilità: %s grado di sfida: %f immagine: %s",
-                id, name, armorClass, lifePoint,
+                "id: %d nome: %s tipo: %s taglia: %s ca: %d pf: %d movimento: %s forza: %d destrezza: %d costituzione: %d inteligenza: %d sagezza: %d carisma: %d initiative: %d tiri salvezza: %s sensi: %s abilità: %s immunità: %s resistenze: %s vulnerabilità: %s grado di sfida: %f immagine: %s",
+                id, name, type, size, armorClass, lifePoint,
                 moviment,
                 strength, dexterity, constitution, intelligence, wisdom, charisma, initiative, savingThrow, sense,
                 skills, immunity,

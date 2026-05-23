@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -19,7 +19,7 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http)
             throws Exception {
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers("/", "/home").hasAnyAuthority("USER", "ADMIN")
+                .requestMatchers("/", "/home").hasAnyAuthority("USER", "ADMIN", "SPELLER")
                 .requestMatchers("/monsters/create", "/monsters/edit/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/monsters/**").hasAuthority("ADMIN")
                 .requestMatchers("/actions/create", "/actions/edit/**").hasAuthority("ADMIN")
@@ -28,10 +28,25 @@ public class SecurityConfiguration {
                 .requestMatchers("/reactions/create", "/reactions/edit/**").hasAuthority("ADMIN")
                 .requestMatchers("/legendActions/create", "/legendActions/edit/**").hasAuthority("ADMIN")
                 .requestMatchers("/monsters", "/monsters/**").hasAnyAuthority("USER", "ADMIN")
-                .requestMatchers("/spells/create", "/spells/edit/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/spells/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/spells/**").hasAnyAuthority("ADMIN", "SPELLER")
+                .requestMatchers("/spells/create", "/spells/edit/**").hasAnyAuthority("ADMIN", "SPELLER")
+                .requestMatchers("/spells", "/spells/**").hasAnyAuthority("USER", "ADMIN", "SPELLER")
+
                 .requestMatchers("/**").permitAll())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll())
+                .rememberMe(remember -> remember
+                        .key("rememberMePlease")
+                        .tokenValiditySeconds(86400 * 7)
+                        .userDetailsService(userDetailService()));
+
         return http.build();
     }
 

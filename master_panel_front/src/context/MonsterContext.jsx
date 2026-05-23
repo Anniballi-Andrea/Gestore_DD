@@ -3,10 +3,17 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
+import { useCampaign } from "./CampaignContext";
 
 const MonsterContext = createContext();
 
 export function MonsterProvider({ children }) {
+
+    const { currentCampaign } = useCampaign()
+
+    const storageKey = `battle-monster-${currentCampaign}`
+
+
     const [encounterNumb, setEncounterNumb] = useState("");
     const [encounterName, setEncounterName] = useState("");
     const [allMonsters, setAllMonsters] = useState([]);
@@ -18,20 +25,32 @@ export function MonsterProvider({ children }) {
 
 
     //variabile per l'elenco dei nemici in battaglia salvata nel local storage
-    const [battle, setBattle] = useState(() => {
-        const savedMonsters = localStorage.getItem(`battle-monster`);
-        return savedMonsters ? JSON.parse(savedMonsters) : []
+    const [battle, _setBattle] = useState(() => {
+        const savedMonsters = localStorage.getItem(storageKey);
+        return savedMonsters ? JSON.parse(savedMonsters) : [];
     });
 
     //caricare nel local storage lo stato della battaglia ad ogni sua modifica
     useEffect(() => {
-        localStorage.setItem(`battle-monster`, JSON.stringify(battle));
-    }, [battle]);
+        const savedMonsters = localStorage.getItem(storageKey);
+        _setBattle(savedMonsters ? JSON.parse(savedMonsters) : []);
+    }, [storageKey]);
 
+    const setBattle = (action) => {
+        _setBattle((prev) => {
+            // Risolve il nuovo stato (supporta sia setBattle(nuovoArray) che setBattle(prev => ...))
+            const newState = typeof action === 'function' ? action(prev) : action;
+
+            // Salva nel localStorage specifico della campagna ISTANTANEAMENTE
+            localStorage.setItem(storageKey, JSON.stringify(newState));
+
+            return newState;
+        });
+    }
 
     function getAllMonster() {
         axios
-            .get("http://localhost:8080/api/monsters")
+            .get("http://100.81.239.92:8080/api/monsters")
             .then((response) => {
                 const data = response.data;
                 setAllMonsters(data);
@@ -44,7 +63,7 @@ export function MonsterProvider({ children }) {
         e.preventDefault();
 
         axios
-            .get(`http://localhost:8080/api/monsters/serchByName/${encounterName}`)
+            .get(`http://100.81.239.92:8080/api/monsters/serchByName/${encounterName}`)
             .then((response) => {
                 const data = response.data;
                 const newBattle = [];

@@ -24,7 +24,7 @@ export default function EncounterActions({ el, i }) {
                     </div>
                 </div>
                 <div className="card-body ">
-                    <div className="div">
+                    <div >
                         {el.actions.length > 0 ? <div className="text-center mb-2 pb-2 border-bottom">
                             <span className="fw-bold fs-5">Azioni:</span>
                         </div> :
@@ -32,15 +32,35 @@ export default function EncounterActions({ el, i }) {
                                 <span className="fw-bold fs-5">Azioni non presenti!</span>
                             </div>
                         }
+                        <div className="accordion bg_black" id={`accordion-parent-${el.instanceId}`}>
+                            {
+                                el.actions && el.actions.map((action, index) => (
 
-                        {
-                            el.actions && el.actions.map((action) => (
-                                <div key={action.id} className="border-bottom pb-2 mb-2">
-                                    <span className="fw-bold">{action.name}: </span>
-                                    <span>{action.effect}</span>
-                                </div>
-                            ))
-                        }
+                                    <div key={action.id} className="accordion-item bg_black">
+                                        <h2 className="accordion-header bg_black">
+                                            <button
+                                                className="accordion-button bg_black collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target={`#collapse-${el.instanceId}-${action.id}-${index}`}
+                                                aria-expanded="false"
+                                                aria-controls={`collapse-${el.instanceId}-${action.id}-${index}`}>
+                                                {action.name}
+                                            </button>
+                                        </h2>
+                                        <div
+                                            id={`collapse-${el.instanceId}-${action.id}-${index}`}
+                                            className="accordion-collapse collapse "
+                                            data-bs-parent={`#accordion-parent-${el.instanceId}`}>
+                                            <div className="accordion-body">
+                                                {action.effect}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                ))
+                            }
+                        </div>
                     </div>
                     <div className="mt-2 d-flex justify-content-center mt-3">
                         <button type="button" className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={`#encounterDelete${el.id}${i}`}>

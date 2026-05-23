@@ -2,17 +2,35 @@
 import { useState } from "react";
 import { useMonster } from "../context/MonsterContext";
 import Modal from "./Modal";
+import { useEffect } from "react";
 export default function EncounterCard({ el, i }) {
 
     const { removeFromBattle, applicaDanno, applicaCura, setBattle } = useMonster();
 
+
     const [inputDanno, setInputDanno] = useState("");
     const [inputCura, setInputCura] = useState("");
+    const [tempPf, setTempPf] = useState(() => {
+        const savedPfTemp = localStorage.getItem(`monster-${el.instanceId}`);
+        return savedPfTemp ? JSON.parse(savedPfTemp) : ""
+    });
 
+    useEffect(() => {
+        localStorage.setItem(`monster-${el.instanceId}`, JSON.stringify(tempPf));
+    }, [tempPf]);
 
     const handleDanno = (e) => {
         e.preventDefault();
         let danno = Number(inputDanno)
+        if (tempPf > 0 && tempPf <= danno && danno > 0) {
+            danno -= Number(tempPf)
+            setTempPf("")
+        } else if (tempPf > 0 && tempPf > danno && danno > 0) {
+
+            setTempPf(tempPf - danno)
+            danno = 0;
+        }
+
         if (danno < 0) {
             danno = 0
         }
@@ -90,7 +108,15 @@ export default function EncounterCard({ el, i }) {
                             </div>
                         </form>
                         {/*input cura*/}
+
                     </div>
+                    <div className="row row-cols-2 justify-content-center  mt-2 mb-2">
+                        <div className="col text-center">
+                            <label className="form-label " htmlFor="tempPf">PF temporanei</label>
+                            <input id="tempPf" className="form-control text-center" type="number" placeholder="0" value={tempPf} onChange={(e) => setTempPf(e.target.value)} />
+                        </div>
+                    </div>
+
                     {/*input danno/cura */}
                     <div className="row row-cols-3 mt-3">
                         {el.strength <= 0 ? <div className="col">str: {el.strength}</div> : <div className="col">str: +{el.strength}</div>}

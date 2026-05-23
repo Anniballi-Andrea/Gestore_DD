@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lxmls:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/style :: style}"></th:block>
@@ -19,7 +19,7 @@
                     <p class="text-danger">completa i campi con un errore</p>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="name">Nome del Mostro:</label>
                             <input class="form-control" type="text" id="name" placeholder="es: goblin"
@@ -31,7 +31,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
+                        <div class="mt-3">
+                            <label class="form-label" for="type">Tipo:</label>
+                            <input class="form-control" type="text" id="type" placeholder="es: goblin"
+                                th:field="*{type}" th:errorClass="is-invalid">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('type')}">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('type')}" th:text="${error}" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <div class="mt-3">
+                            <label class="form-label" for="size">Taglia:</label>
+                            <input class="form-control" size="text" id="size" placeholder="media" th:field="*{size}"
+                                th:errorClass="is-invalid">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('size')}">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('size')}" th:text="${error}" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="armorClass">Classe Armatura:</label>
                             <input class="form-control" type="number" id="armorClass" placeholder="0"
@@ -43,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="lifePoint">Punti ferita:</label>
                             <input class="form-control" type="number" id="lifePoint" placeholder="0"
@@ -55,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                     <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
                         <div class="mt-3">
                             <label class="form-label" for="initiative">Bonus Iniziativa:</label>
                             <input class="form-control" type="number" id="initiative" placeholder="0"
@@ -169,7 +193,7 @@
                             <div class="col-3">
                                 <div class="mt-3">
                                     <label class="form-label" for="savingThrow">Tiri Salvezza:</label>
-                                    <textarea class="form-control" type="file" id="savingThrow" placeholder="Cos +4"
+                                    <textarea class="form-control" id="savingThrow" placeholder="Cos +4"
                                         th:field="*{savingThrow}" th:errorClass="is-invalid"></textarea>
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('savingThrow')}">
                                         <ul>
@@ -216,52 +240,52 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                                <div class="col-3">
-                                    <div class="mt-3">
-                                        <label class="form-label" for="resistence">Vulnerabilità:</label>
-                                         <textarea class="form-control" type="file" id="vulnerability"
-                                         placeholder="Danni da fuoco" th:field="*{vulnerability}"
-                                         th:errorClass="is-invalid"></textarea>
-                                          <div class="invalid-feedback" th:if="${#fields.hasErrors('vulnerability')}">
-                                            <ul>
-                                                <li th:each="error : ${#fields.errors('vulnerability')}" th:text="${error}" />
-                                            </ul>
-                                          </div>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="mt-3">
-                                        <label class="form-label" for="sense">Sensi:</label>
-                                        <textarea class="form-control" type="file" id="sense" placeholder="Scurovisione"
-                                            th:field="*{sense}" th:errorClass="is-invalid"></textarea>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('sense')}">
-                                            <ul>
-                                                <li th:each="error : ${#fields.errors('sense')}" th:text="${error}" />
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label" for="image">Immagine:</label>
-                                    <input class="form-control" type="text" name="imageFile" id="image"
-                                        th:field="*{image}">
-                                </div>
 
-                                <div class="col-3">
-                                    <div class="mt-3">
-                                        <label for="level" class="form-label">Grado di Sfida</label>
-                                        <input type="number" step="any" class="form-control" id="level"
-                                            th:field="*{level}" th:errorClass="is-invalid" placeholder="0">
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('level')}">
-                                            <ul>
-                                                <li th:each="error : ${#fields.errors('level')}" th:text="${error}" />
-                                            </ul>
-                                        </div>
+                            <div class="col-3">
+                                <div class="mt-3">
+                                    <label class="form-label" for="resistence">Vulnerabilità:</label>
+                                    <textarea class="form-control" type="file" id="vulnerability"
+                                        placeholder="Danni da fuoco" th:field="*{vulnerability}"
+                                        th:errorClass="is-invalid"></textarea>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('vulnerability')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('vulnerability')}"
+                                                th:text="${error}" />
+                                        </ul>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mt-3">
+                                    <label class="form-label" for="sense">Sensi:</label>
+                                    <textarea class="form-control" type="file" id="sense" placeholder="Scurovisione"
+                                        th:field="*{sense}" th:errorClass="is-invalid"></textarea>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('sense')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('sense')}" th:text="${error}" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <label class="form-label" for="image">Immagine:</label>
+                                <input class="form-control" type="file" name="imageFile" id="image" accept="image/*">
+                            </div>
 
-                          
+                            <div class="col-3">
+                                <div class="mt-3">
+                                    <label for="level" class="form-label">Grado di Sfida</label>
+                                    <input type="number" step="any" class="form-control" id="level" th:field="*{level}"
+                                        th:errorClass="is-invalid" placeholder="0">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('level')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('level')}" th:text="${error}" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
 
                     </div>

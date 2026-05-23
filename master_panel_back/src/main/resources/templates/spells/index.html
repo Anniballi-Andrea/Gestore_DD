@@ -60,34 +60,34 @@
                             <tr>
                                 <th> Nome</th>
                                 <th> Scuola</th>
-                                <th> livello</th>
-                                <th>Apri</th>
-                                <th sec:authorize="hasAuthority('ADMIN')">Modifica</th>
-                                <th sec:authorize="hasAuthority('ADMIN')">Elimina</th>
+                                <th class="text-center "> livello</th>
+                                <th class="text-center">Apri</th>
+                                <th class="text-center" sec:authorize="hasAnyAuthority('ADMIN','SPELLER')">Azioni</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="spell : ${spells}" th:object="${spell}">
                                 <td>[[*{name}]]</td>
                                 <td>[[*{school}]]</td>
-                                <td>
+                                <td class="text-center ">
                                     [[*{level}]]
                                 </td>
-                                <td>
+                                <td class="text-center ">
                                     <a th:href="@{/spells/{id}(id=*{id})}" class="btn btn-primary btn-sm">
                                         <i class="bi bi-arrow-right-square"></i>
                                     </a>
                                 </td>
-                                <td sec:authorize="hasAuthority('ADMIN')">
-                                    <a th:href="@{/spells/edit/{id}(id=*{id})}" class="btn btn-success btn-sm">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                </td>
-                                <td sec:authorize="hasAuthority('ADMIN')">
-                                    <div
-                                        th:replace="~{fragments/modal :: modal(*{id}, 'Eliminare il mostro definitivamente?',@{/spells/delete/{id}(id=*{id})})}">
-                                    </div>
+                                <td sec:authorize="hasAnyAuthority('ADMIN','SPELLER')">
+                                    <div class="d-flex justify-content-center ">
+                                        <a th:href="@{/spells/edit/{id}(id=*{id})}" class="btn btn-success btn-sm me-3">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
 
+                                        <div
+                                            th:replace="~{fragments/modal :: modal(*{id}, 'Eliminare il mostro definitivamente?',@{/spells/delete/{id}(id=*{id})})}">
+                                        </div>
+                                    </div>
 
                                 </td>
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/monsters")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://100.81.239.92:5173/")
 public class MonsterRestController {
 
     @Autowired
