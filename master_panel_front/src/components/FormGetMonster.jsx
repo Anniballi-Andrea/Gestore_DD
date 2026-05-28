@@ -1,5 +1,6 @@
 import { useMonster } from "../context/MonsterContext"
-import SearchItem from "./SearchItem";
+import SearchItemString from "./SearchItemString";
+
 
 export default function FormGetMoster() {
 
@@ -10,7 +11,7 @@ export default function FormGetMoster() {
         <form className="mt-2" onSubmit={getMonster}>
             <div className="row justify-content-center">
                 <div className="col-4 mb-2">
-                    <SearchItem name={encounterName} setName={setEncounterName} array={allMonsters} />
+                    <SearchItemString name={encounterName} setName={setEncounterName} array={allMonsters} />
                 </div>
                 <div className="col-4">
                     <div>

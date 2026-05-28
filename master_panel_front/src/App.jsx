@@ -11,6 +11,7 @@ import { SpellProvider } from "./context/spellContext"
 import NotFound from "./pages/NotFound"
 import SessionNote from "./pages/SessionNote"
 import { CampaignProvider } from "./context/CampaignContext"
+import MagickItemsPage from "./pages/MagickItemsPage"
 
 
 function App() {
@@ -29,8 +30,8 @@ function App() {
                   <Routes>
                     <Route element={<DefaultLayout />}>
                       <Route path="/" element={<Home />} />
-                      <Route path="/monsters" element={<MonstersPage />} />
                       <Route path="/spells" element={<SpellsPage />} />
+                      <Route path="/magick_items" element={<MagickItemsPage />} />
                       <Route path="/session_note" element={<SessionNote />} />
                       <Route path="*" element={<NotFound />} />
                     </Route>

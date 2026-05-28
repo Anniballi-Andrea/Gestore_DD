@@ -16,7 +16,18 @@ export function SpellProvider({ children }) {
         return savedSpell ? JSON.parse(savedSpell) : []
     });
 
+    const [allItems, setAllItems] = useState([]);
+    const [itemName, setItemName] = useState("");
 
+    function getAllMagicItems() {
+        axios
+            .get("http://100.81.239.92:8080/api/magick_items")
+            .then((response) => {
+                const data = response.data;
+                setAllItems(data);
+            })
+            .catch((err) => console.error("errore:", err));
+    }
 
     function getAllSpells() {
         axios
@@ -29,9 +40,14 @@ export function SpellProvider({ children }) {
     }
 
     useEffect(() => { getAllSpells() }, [])
+    useEffect(() => { getAllMagicItems() }, [])
 
     const filtredSpell = allSpells.filter((el) => {
         return el.name.toLowerCase().includes(spellName.toLowerCase())
+    })
+
+    const filtredItems = allItems.filter((el) => {
+        return el.name.toLowerCase().includes(itemName.toLowerCase())
     })
 
 
@@ -48,7 +64,11 @@ export function SpellProvider({ children }) {
                 allSpells,
                 spellPref,
                 setSpellPref,
-                filtredSpell
+                filtredSpell,
+                itemName,
+                setItemName,
+                allItems,
+                filtredItems
 
             }}
         >

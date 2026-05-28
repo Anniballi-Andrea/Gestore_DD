@@ -24,18 +24,6 @@ public class SpellController {
     @Autowired
     private SpellService spellService;
 
-    /*
-     * @GetMapping
-     * public String index(Model model, @RequestParam(required = false) String name,
-     * 
-     * @RequestParam(required = false) String order) {
-     * List<Spell> spells = spellService.getAll();
-     * 
-     * model.addAttribute("spells", spells);
-     * 
-     * return "spells/index";
-     * }
-     */
     @GetMapping
     public String index(Model model, @RequestParam(required = false) String name,
             @RequestParam(required = false) String order) {

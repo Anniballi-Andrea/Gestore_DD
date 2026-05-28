@@ -32,6 +32,11 @@ public class MonsterRestController {
         return monsters;
     }
 
+    @GetMapping("/allByName")
+    public List<String> indexName() {
+        return monsterService.getAllNamesAsc();
+    }
+
     @GetMapping("/serchById/{id}")
     public ResponseEntity<Monster> show(@PathVariable Integer id) {
         Optional<Monster> monsterAttempt = monsterService.findById(id);

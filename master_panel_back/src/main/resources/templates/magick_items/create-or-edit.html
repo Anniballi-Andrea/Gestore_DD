@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lxmls:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/style :: style}"></th:block>
+    <title th:if="${edit}">Modifica Oggetto</title>
+    <title th:unless="${edit}">Aggiungi Oggetto</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/nav :: nav}"></th:block>
+    </header>
+    <main>
+        <div class="container bg-light mt-3">
+            <form id="trait-create-form"
+                th:action="${edit} ? @{/magick_items/edit/{id}(id=${item.id})} : @{/magick_items/create}" method="post"
+                th:object="${item}">
+                <h1 th:if="${edit}">Modifica l'oggetto: [[*{name}]]</h1>
+                <h1 th:unless="${edit}">Aggiungi un Oggetto Magico</h1>
+
+                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                    <p class="text-danger">completa i campi con un errore</p>
+                </div>
+                <div class="row row-cols-3">
+                    <div class="col mt-3">
+                        <label class="form-label" for="name">Nome:</label>
+                        <input class="form-control" type="text" id="name" placeholder="inserisci il nome dell'oggetto"
+                            th:field="*{name}" th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('name')}" th:text="${error}" />
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col mt-3">
+                        <label class="form-label" for="type">Tipo di oggetto:</label>
+                        <input class="form-control" type="text" id="type" placeholder="inserisci il nome dell'oggetto"
+                            th:field="*{type}" th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('type')}">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('type')}" th:text="${error}" />
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col mt-3">
+                        <label class="form-label" for="rarity">Rarità:</label>
+                        <input class="form-control" type="text" id="rarity" placeholder="inserisci la rarità"
+                            th:field="*{rarity}" th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('rarity')}">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('rarity')}" th:text="${error}" />
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-check mt-5">
+                    <input class="form-check-input" type="checkbox" id="sintony" th:field="*{sintony}">
+
+                    <label class="form-check-label" for="sintony">
+                        Richiede sintonia
+                    </label>
+                </div>
+                <div class="my-3 pb-4">
+                    <label class="form-label" for="description">Descrizione:</label>
+                    <textarea class="form-control overflow-y-scroll" id="description"
+                        placeholder="inserisci la descrizione dell'oggetto" th:field="*{description}"
+                        th:errorClass="is-invalid" rows="6"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('description')}" th:text="${error}" />
+                        </ul>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-4 pb-4">
+                        <div>
+                            <button class="btn btn-primary" type="submit">Conferma</button>
+                        </div>
+                        <div class="ms-5">
+                            <a class="btn btn-primary " th:href="@{/magick_items}"><i
+                                    class="bi bi-arrow-left-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

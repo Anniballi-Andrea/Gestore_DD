@@ -8,9 +8,10 @@ export default function MonsterCard({ el }) {
     return (
         <>
             <div className="col">
-                <div key={el.id} className="card bg_bage mb-4 mx-4">
+                <div className="card bg_bage mb-4 mx-4">
                     <div className="card-header bg_name text-center">
                         <div className="d-flex justify-content-around">
+
                             <div className="fw-bold">{el.name}</div>
                             <div>Sfida: {el.level}</div>
                         </div>

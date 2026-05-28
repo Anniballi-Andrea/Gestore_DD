@@ -46,7 +46,7 @@ export default function SelectCampaign() {
                                     type="button"
                                     onClick={() => deleteCampaign(el)}
                                 >
-                                    <i class="bi bi-trash-fill"></i>
+                                    <i className="bi bi-trash-fill"></i>
                                 </button>
                             </div>
 

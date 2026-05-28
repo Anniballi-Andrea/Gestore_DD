@@ -45,6 +45,13 @@ public class MonsterService {
         return monsterRepo.findAllByOrderByNameAsc();
     }
 
+    public List<String> getAllNamesAsc() {
+        return monsterRepo.findAllByOrderByNameAsc()
+                .stream()
+                .map(Monster::getName)
+                .toList();
+    }
+
     public List<Monster> getAllByLevelAsc() {
         return monsterRepo.findAllByOrderByLevelAsc();
     }

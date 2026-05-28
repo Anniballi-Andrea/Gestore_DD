@@ -50,7 +50,7 @@ export function MonsterProvider({ children }) {
 
     function getAllMonster() {
         axios
-            .get("http://100.81.239.92:8080/api/monsters")
+            .get("http://100.81.239.92:8080/api/monsters/allByName")
             .then((response) => {
                 const data = response.data;
                 setAllMonsters(data);
@@ -107,7 +107,7 @@ export function MonsterProvider({ children }) {
     }
 
     const filtredMonster = allMonsters.filter((el) => {
-        return el.name.toLowerCase().includes(monsterName.toLowerCase())
+        return el.toLowerCase().includes(monsterName.toLowerCase())
     })
 
     const removeFromBattle = (id) => {

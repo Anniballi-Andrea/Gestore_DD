@@ -140,10 +140,85 @@ input::-webkit-inner-spin-button {
     border-radius: 10px;
 }
 
+.item_card {
+    background:
+        linear-gradient(180deg, #0b4d22, #063015);
+    ;
+
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        0 0 10px rgba(20, 120, 60, 0.25);
+
+    backdrop-filter: blur(3px);
+}
+
+.item_card_header {
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(120, 160, 120, 0.2);
+
+    color: #f5e6c8;
+
+    letter-spacing: 0.5px;
+}
+
+.item_card_body {
+    height: 500px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: transparent;
+
+    padding: 1rem;
+}
+
+.item_card_body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.item_card_body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.item_card_body::-webkit-scrollbar-thumb {
+    background: rgba(80, 140, 90, 0.6);
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+.item_card_body::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 180, 110, 0.8);
+}
+
 .bg_spell {
     background-color: beige;
 }
 
+.bg_item {
+    background:
+        linear-gradient(180deg,
+            #efe3c0 0%,
+            #d8c7a0 100%);
+
+    border: 2px solid #8b6a2b;
+
+    border-radius: 10px;
+
+    padding: 1rem;
+
+    box-shadow:
+        inset 0 0 8px rgba(0, 0, 0, 0.15);
+
+    font-family: "Georgia", serif;
+
+    line-height: 1.6;
+}
 
 .card_all_monsters {
     height: 500px !important;
@@ -208,4 +283,53 @@ input::-webkit-inner-spin-button {
 
 .active {
     color: #a9741c !important;
+}
+
+.ps_bar_body {
+    position: relative;
+    height: 25px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.ps_bar_stat {
+    height: 100%;
+    transition: width 0.7s ease-out,
+        background-color 0.7s ease-out;
+}
+
+.ps_bar_hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.search_box {
+    z-index: 1050;
+    max-height: 250px;
+    border: 2px solid #a9741c;
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    top: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a9741c rgba(0, 0, 0, 0.6);
+
+}
+
+#search_encounter:focus {
+    box-shadow: none !important;
+    border-color: #a9741c !important;
+    background-color: #161616;
+    color: white;
 }

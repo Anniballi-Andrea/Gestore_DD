@@ -19,31 +19,56 @@ export default function SearchItem({ name, setName, array }) {
 
 
     return (
-        <div className="">
-            <label htmlFor="serch_encounter" className="custom-label">
-                cerca:
-            </label>
-            <div className="relative ">
-                <input
+        <>
 
-                    id="serch_encounter"
-                    className="form-control "
-                    type="text"
-                    value={name}
-                    onChange={(e) => { searchForAdd(e.target.value) }}
-                    autoComplete="off"
-                    placeholder="nome..."
-                    required
-                />
-                <div className="searchbox  ">
-                    {
-                        (name && name.length >= 3 && search) && arrayFiltred.map((el, i) => (
-                            <div className="search_content " key={i} onClick={() => stopSearch(el.name)}>{el.name}</div>
-                        ))
-                    }
+            <div className="position-relative">
+                <label htmlFor="search_encounter" className="custom-label mb-1">
+                    Cerca:
+                </label>
+                <div className="input-group">
+                    <span className="input-group-text bg_header color_round border-secondary">
+                        <i className="bi bi-search"></i>
+                    </span>
+                    <input
+                        id="search_encounter"
+                        className="form-control "
+                        style={{ borderColor: "#a9741c" }}
+                        type="text"
+                        value={name}
+                        onChange={(e) => searchForAdd(e.target.value)}
+                        onFocus={() => setSearch(true)}
+                        autoComplete="off"
+                        placeholder="Nome..."
+                        required
+                    />
                 </div>
+                {name && name.length >= 3 && search && (
+                    <div className="search_box background_custom p-0 shadow-lg">
+                        {arrayFiltred.length > 0 ? (
+                            <ul className="dropdown-menu show w-100 position-absolute background_custom search_box p-0 mt-1 shadow-lg">
+                                {arrayFiltred.map((el, i) => (
+                                    <li key={i}>
+                                        <button
+                                            type="button"
+                                            className="dropdown-item py-2 px-3 text-start border-0 bg-transparent text-white"
+                                            onClick={() => stopSearch(el.name)}
+                                        >
+                                            {el.name}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <div className="p-3 text-center  small fst-italic">
+                                Nessun elemento trovato
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
-        </div>
+
+        </>
+
     )
 }

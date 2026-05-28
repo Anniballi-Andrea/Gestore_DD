@@ -20,11 +20,12 @@ export default function Header() {
                                     <li className="nav-item">
                                         <NavLink className="nav-link  text-light" to="/">Home</NavLink>
                                     </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link text-light" to="/monsters">Mostri</NavLink>
-                                    </li>
+
                                     <li className="nav-item">
                                         <NavLink className="nav-link text-light" to="/spells">Magie</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link text-light" to="/magick_items">Oggetti Magici</NavLink>
                                     </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link text-light" to="/session_note">Note</NavLink>

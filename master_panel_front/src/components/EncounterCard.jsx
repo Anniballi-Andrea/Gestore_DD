@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useMonster } from "../context/MonsterContext";
 import Modal from "./Modal";
 import { useEffect } from "react";
+import LifePointBar from "./LifePointBar";
 export default function EncounterCard({ el, i }) {
 
     const { removeFromBattle, applicaDanno, applicaCura, setBattle } = useMonster();
-
 
     const [inputDanno, setInputDanno] = useState("");
     const [inputCura, setInputCura] = useState("");
@@ -45,6 +45,7 @@ export default function EncounterCard({ el, i }) {
             cura = 0
         }
         applicaCura(el.instanceId, Number(cura))
+        setInputDanno("")
 
         setInputCura("")
     }
@@ -59,7 +60,6 @@ export default function EncounterCard({ el, i }) {
     })
 
 
-
     return (
         <>
             <div className="card card_home">
@@ -67,9 +67,11 @@ export default function EncounterCard({ el, i }) {
                     <div className="mb-2">
                         {el.name}
                     </div>
+                    <LifePointBar el={el} />
                     <div className="d-flex justify-content-center">
-                        <div className="me-2">{
-                            el.status == 0 ? "morto" : "PF:" + el.status}
+                        <div className="me-2">
+                            {el.status == 0 ? "morto" : "PF:" + el.status}/{el.lifePoint}
+
 
                         </div>
                         <div>
